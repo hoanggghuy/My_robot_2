@@ -30,10 +30,10 @@ Project mô phỏng một robot di động đơn giản (mobile robot) sử dụ
     ```bash
     ros2 launch my_bot launch_all.py headless:=False 
     ```
-    ![Demo](./src/demo/2.gif)
+    ![Demo](./demo/2.gif)
 
 2. Sử dụng Cartographer
     ```bash
     ros2 launch my_bot launch_all.py headless:=False slam_select:=cartographer slam:=True load_state_filename:=./my_map.pbstream
     ```
-    ![Demo](./src/demo/2.png)
+    ![Demo](./demo/2.png)
