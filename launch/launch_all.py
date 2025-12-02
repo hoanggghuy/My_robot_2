@@ -2,7 +2,8 @@ import os
 import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription, GroupAction
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription, GroupAction, RegisterEventHandler
+from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.conditions import IfCondition
 from launch_ros.substitutions import FindPackageShare
@@ -215,6 +216,16 @@ def generate_launch_description():
         launch_arguments={'namespace': namespace,
                           'use_namespace': use_namespace,
                           'rviz_config': rviz_config_file}.items())
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_cont"]
+    )
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"]
+    )
  
     param_substitutions = {
         'use_sim_time': use_sim_time,
@@ -300,10 +311,23 @@ def generate_launch_description():
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
 
+
     # Add any conditioned actions
     ld.add_action(start_gazebo_server_cmd)
     ld.add_action(start_gazebo_client_cmd)
     ld.add_action(start_gazebo_spawner_cmd)
+    ld.add_action(RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=start_gazebo_spawner_cmd,
+            on_exit=[joint_broad_spawner],
+        )
+    ))
+    ld.add_action(RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=joint_broad_spawner,
+                on_exit=[diff_drive_spawner],
+            )
+        ))
 
     # Add the actions to launch all of the navigation nodes
     ld.add_action(start_robot_state_publisher_cmd)
