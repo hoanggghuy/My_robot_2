@@ -316,18 +316,18 @@ def generate_launch_description():
     ld.add_action(start_gazebo_server_cmd)
     ld.add_action(start_gazebo_client_cmd)
     ld.add_action(start_gazebo_spawner_cmd)
-    ld.add_action(RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=start_gazebo_spawner_cmd,
-            on_exit=[joint_broad_spawner],
-        )
-    ))
-    ld.add_action(RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=joint_broad_spawner,
-                on_exit=[diff_drive_spawner],
-            )
-        ))
+    # ld.add_action(RegisterEventHandler(
+    #     event_handler=OnProcessExit(
+    #         target_action=start_gazebo_spawner_cmd,
+    #         on_exit=[joint_broad_spawner],
+    #     )
+    # ))
+    # ld.add_action(RegisterEventHandler(
+    #         event_handler=OnProcessExit(
+    #             target_action=joint_broad_spawner,
+    #             on_exit=[diff_drive_spawner],
+    #         )
+    #     ))
 
     # Add the actions to launch all of the navigation nodes
     ld.add_action(start_robot_state_publisher_cmd)
