@@ -1,4 +1,4 @@
-# 🤖 My Bot Simulation - ROS 2 Nav2 & SLAM
+# 🤖 My Bot Simulation - ROS 2 Nav2 & SLAM & ORB_SLAM
 Project mô phỏng một robot di động đơn giản (mobile robot) sử dụng ROS 2 và Gazebo. Hệ thống tích hợp sẵn Nav2 để tự hành và hỗ trợ 2 thuật toán SLAM phổ biến: Slam Toolbox và Cartographer.
 
 ## 🛠 Yêu cầu hệ thống
@@ -37,3 +37,11 @@ Project mô phỏng một robot di động đơn giản (mobile robot) sử dụ
     ros2 launch my_bot launch_all.py headless:=False slam_select:=cartographer slam:=True load_state_filename:=./my_map.pbstream
     ```
     ![Demo](./demo/2.png)
+
+3. Navigation
+
+    ![Demo](./demo/3.gif)
+
+4. ORB_SLAM
+
+    ![Demo](./demo/4.gif)

@@ -162,12 +162,6 @@ def generate_launch_description():
         default_value=os.path.join(package_dir,'worlds','my_world'),
         description='Full path to world'
     )
-
-    declare_robot_xacro_cmd = DeclareLaunchArgument(
-        'robot_xacro',
-        default_value=os.path.join(package_dir,'description', 'robot.urdf.xacro'),
-        description='Full path to robot xacro file'
-    )
     
     #Convert xacro to xml
     xacro_file = os.path.join(package_dir,'description', 'robot.urdf.xacro')
