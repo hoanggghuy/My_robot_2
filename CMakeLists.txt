@@ -23,6 +23,10 @@ find_package(ament_cmake REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
+  find_package(rclpy REQUIRED)
+  find_package(geometry_msgs REQUIRED)
+  find_package(cv_bridge REQUIRED)
+  find_package(sensor_msgs REQUIRED)
   # the following line skips the linter which checks for copyrights
   # uncomment the line when a copyright and license is not present in all source files
   #set(ament_cmake_copyright_FOUND TRUE)
@@ -31,6 +35,18 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+install(PROGRAMS
+  ball_tracker/detect_ball.py
+  ball_tracker/detect_ball_3d.py
+  ball_tracker/follow_ball.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  ball_tracker/process_image.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 install(
   DIRECTORY config description launch worlds map rviz2
